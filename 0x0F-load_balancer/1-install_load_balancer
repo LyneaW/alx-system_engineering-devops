@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Installs and configures HAproxy with version 1.5 or greater
+#+ in order to send trafic to web-01 and web-02
+apt-get -y install haproxy
+
+# edit config file
+server_config=\
+"
+frontend we0102
+        bind *:80
+        mode http
+        default_backend web_backend
+backend web_backend
+        balance roundrobin
+        server 405070-web-01 54.85.51.251:80 check
+        server 405070-web-02 100.26.177.229:80 check
+"
+ echo "$server_config" >> /etc/haproxy/haproxy.cfg
+
+ echo "ENABLED=1" >> /etc/default/haproxy
+
+ sudo service haproxy restart
