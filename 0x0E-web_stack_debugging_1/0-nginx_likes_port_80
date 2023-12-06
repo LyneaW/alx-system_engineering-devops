@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Conscript that configures a server to the above requirements
+
+# Update Nginx configuration to listen on port 80
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# Restart Nginx
+sudo service nginx restart
