@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Creates a backup of your database compressed into MySQL dump file
+mysqldump -u root -p "$1" --all-atabases > backup.sql
+tar -czvf "$(date +%d-%m-%Y).tar.gz" backup.sql
