@@ -1,18 +1,21 @@
 #!/usr/bin/python3
-"""Task 0"""
-
-
-def number_of_subscribers(subreddit):
-"""Queries the Reddit API and returns the number of subscribers
-to the subreddit"""
+"""Function to query subscribers on a given Reddit subreddit."""
+import json
 import requests
 
-sub_info = requests.get("https://www.reddit.com/r/{}/about.json"
-.format(subreddit),
-headers={"User-Agent": "My-User-Agent"},
+
+def top_ten(subreddit):
+url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+headers = {
+"User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
+}
+params = {
+"limit": 10
+}
+response = requests.get(url, headers=headers, params=params,
 allow_redirects=False)
-if sub_info.status_code >= 300:
-return 0
-
-return sub_info.json().get("data").get("subscribers")
-
+if response.status_code == 404:
+print("None")
+return
+results = response.json().get("data")
+[print(c.get("data").get("title")) for c in results.get("children")]
