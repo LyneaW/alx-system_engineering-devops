@@ -1,6 +1,5 @@
-#Apache 500 error in wordpress
-exec { 'fix':
-  onlyif  => 'test -e /var/www/html/wp-settings.php',
-  command => "sed -i 's/phpp/php/' /var/www/html/wp-settings.php",
-  path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+# incorrect file name
+exec{ 'fix-wordpress':
+command => 'sed -i \'s/class-wp-locale.phpp/class-wp-locale.php/g\' /var/www/html/wp-settings.php',
+path    => '/usr/local/bin/:/bin/',
 }
